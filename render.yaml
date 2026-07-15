@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: amazon-product-scraper-api
+    runtime: python
+    rootDir: backend
+    autoDeployTrigger: commit
+    buildCommand: pip install -r requirements.txt && playwright install --with-deps chromium
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: REQUEST_TIMEOUT_MS
+        value: 30000
+      - key: SCRAPER_RETRY_ATTEMPTS
+        value: 3
+      - key: MAX_CONCURRENT_SCRAPES
+        value: 2
+      - key: LOG_LEVEL
+        value: INFO

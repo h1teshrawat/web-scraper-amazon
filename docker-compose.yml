@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      ALLOWED_ORIGINS: http://localhost:3000
+      REQUEST_TIMEOUT_MS: 30000
+      MAX_CONCURRENT_SCRAPES: 2
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:8000
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
