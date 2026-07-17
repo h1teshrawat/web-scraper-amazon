@@ -1,6 +1,7 @@
 services:
   - type: web
     name: amazon-product-scraper-api
+    plan: free
     runtime: python
     rootDir: backend
     autoDeployTrigger: commit
